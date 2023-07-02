@@ -1,0 +1,29 @@
+# Dependency directories
+/node_modules
+/yarn.lock
+/package-lock.json
+
+# iOS build files
+/ios/Pods
+/ios/build
+
+# Android build files
+/android/app/build
+/android/gradle-wrapper.jar
+/android/gradle/caches
+/android/gradle/wrapper/dists
+
+# Generated files
+/ios/Podfile.lock
+/ios/Pods
+/android/app/libs
+/android/app/build
+
+# Miscellaneous
+.DS_Store
+/.expo
+/.expo-shared
+.env
+
+# config files
+config.js
