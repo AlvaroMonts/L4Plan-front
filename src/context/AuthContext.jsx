@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { BASE_URL } from "../services/config";
+import { set } from "react-native-reanimated";
 
 export const AuthContext = createContext();
 
@@ -16,6 +17,8 @@ const AuthProvider = ({ children }) => {
   // AsyncStorage.clear();
   const login = (email, password) => {
     setIsLoading(true);
+    setUserToken(null);
+    setUserInfo(null);
     setError(null);
     axios
       .post(BASE_URL + "/auth/authenticate", {
@@ -35,14 +38,13 @@ const AuthProvider = ({ children }) => {
       .catch((error) => {
         if (error.response) {
           setError("El correo y/o la contraseña son incorrectas");
-          // console.log(error.response.data + " " + error.response.status);
-          // console.log(error.response.headers);
+          console.log(error.response.data);
         } else if (error.request) {
-          setError("NOOOOOOOOOOOOOO1->" + error.request);
-          // console.log(error.request);
+          setError(error.request);
+          console.log(error.request);
         } else {
-          setError("NOOOOOOOOOOOOOO2->" + error.message);
-          // console.log("Error", error.message);
+          setError(error.message);
+          console.log(error.message);
         }
       })
       .finally(() => setIsLoading(false));

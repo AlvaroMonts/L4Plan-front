@@ -19,10 +19,12 @@ const SiteHeader = ({ position, photo, name, rating }) => {
         <StyledText fontSize="heading" fontWeight="bold">
           {position} {name}
         </StyledText>
-        <StyledText fontSize="body" color="secondary">
-          <RatingItem rating={rating} />
-          {rating}/5
-        </StyledText>
+        {rating && (
+          <StyledText fontSize="body" color="secondary">
+            <RatingItem rating={rating} />
+            {rating}/5
+          </StyledText>
+        )}
       </View>
     </View>
   );

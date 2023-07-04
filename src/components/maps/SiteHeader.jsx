@@ -14,13 +14,15 @@ const SiteHeader = ({ photo, name, isOpen }) => {
           defaultSource={defaultImage}
         />
       </View>
-      <View>
+      <View style={styles.columnMainData}>
         <StyledText fontSize="subheading" fontWeight="bold">
           {name}
         </StyledText>
-        <StyledText style={styles.opened}>
-          {isOpen ? "Abierto" : "Cerrado"}
-        </StyledText>
+        {isOpen !== undefined && (
+          <StyledText style={styles.opened}>
+            {isOpen ? "🟢 Abierto" : "🔴 Cerrado"}
+          </StyledText>
+        )}
       </View>
     </View>
   );
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
   columnImage: {
     padding: 4,
   },
+  columnMainData: {},
   opened: {
     flexDirection: "row",
     paddingVertical: 4,

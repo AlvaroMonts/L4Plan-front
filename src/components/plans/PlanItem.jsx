@@ -17,13 +17,9 @@ const PlanItem = ({ placeId, placeName, ...plan }) => {
     navigation.goBack();
   };
 
-  const places = [];
+  const places = plan.places?.map((place) => place.placeName);
 
-  for (let i = 0; i < plan.places?.length; i++) {
-    places.push(
-      plan.places[i].placeName + (i !== plan.places.length - 1 ? ", " : ". ")
-    );
-  }
+  const formattedPlaces = places?.join("\n");
 
   return (
     <View style={styles.container}>
@@ -47,8 +43,8 @@ const PlanItem = ({ placeId, placeName, ...plan }) => {
           {plan?.places?.length || "0"} Sitio{plan?.places?.length != 1 && "s"}
         </StyledText>
         {places.length != 0 && (
-          <StyledText fontSize="body" numberOfLines={2} ellipsizeMode="tail">
-            {places}
+          <StyledText fontSize="body" numberOfLines={4} ellipsizeMode="tail">
+            {formattedPlaces}
           </StyledText>
         )}
       </TouchableOpacity>

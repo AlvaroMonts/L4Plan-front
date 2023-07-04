@@ -7,6 +7,7 @@ import { useUser } from "../hooks/useUser";
 import ImageSlider from "../components/sites/ImageSlider";
 import { API_KEY } from "../services/config";
 import RatingItem from "../components/styledComponents/RatingItem";
+import LinkText from "../components/styledComponents/LinkText";
 
 const GoogleSiteView = ({ route }) => {
   const navigation = useNavigation();
@@ -47,35 +48,60 @@ const GoogleSiteView = ({ route }) => {
       <ScrollView>
         <ImageSlider style={styles.images} images={photos} />
         <StyledText style={styles.description}>
-          {details?.editorial_summary.overview}
-        </StyledText>
-        <StyledText style={styles.address}>
-          {details?.formatted_address}
-        </StyledText>
-        <StyledText style={styles.address}>{details?.website}</StyledText>
-        <StyledText style={styles.address}>
-          {details?.current_opening_hours.open_now ? "Abierto" : "Cerrado"}
-        </StyledText>
-        <StyledText style={styles.address}>
-          Horario:{"\n"}
-          {details?.current_opening_hours?.weekday_text.map(
-            (schedule, index) => (
-              <StyledText key={index}>
-                {schedule}
-                {"\n"}
-              </StyledText>
-            )
-          )}
-        </StyledText>
-        <StyledText style={styles.address}>
-          {details?.international_phone_number}
+          {details?.editorial_summary?.overview}
         </StyledText>
 
-        <StyledText style={styles.address}>
-          <RatingItem rating={details?.rating} />
-          {details?.rating}/5
+        {details?.current_opening_hours?.open_now !== undefined && (
+          <StyledText
+            style={styles.normalText}
+            fontSize="subheading"
+            fontWeight="bold"
+          >
+            {details.current_opening_hours.open_now
+              ? "🟢 Abierto"
+              : "🔴 Cerrado"}
+          </StyledText>
+        )}
+
+        {details?.rating && (
+          <StyledText style={styles.normalText}>
+            <RatingItem rating={details.rating} />
+            {details.rating}/5
+          </StyledText>
+        )}
+
+        <StyledText style={styles.normalText}>
+          {details?.formatted_address}
         </StyledText>
+
+        {details?.website && (
+          <StyledText style={styles.normalText}>
+            Página web:{" "}
+            <LinkText url={details.website} text={details.website} />
+          </StyledText>
+        )}
+
+        {details?.current_opening_hours?.weekday_text && (
+          <StyledText style={styles.normalText}>
+            Horario:{"\n"}
+            {details.current_opening_hours.weekday_text.map(
+              (schedule, index) => (
+                <StyledText key={index}>
+                  {schedule}
+                  {"\n"}
+                </StyledText>
+              )
+            )}
+          </StyledText>
+        )}
+
+        {details?.international_phone_number && (
+          <StyledText style={styles.normalText}>
+            Teléfono: {details.international_phone_number}
+          </StyledText>
+        )}
       </ScrollView>
+
       {comesFromPlan ? (
         <View style={styles.buttons}>
           <TouchableOpacity
@@ -130,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
   },
-  address: {
+  normalText: {
     fontSize: 14,
     marginBottom: 10,
     color: "#555555",

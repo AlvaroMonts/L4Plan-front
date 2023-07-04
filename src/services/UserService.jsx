@@ -21,7 +21,9 @@ export const hooksUser = () => {
 
     axios
       .put(finalUrl, { firstName, lastName, gender, birthDate }, yourConfig)
-      .then()
+      .then((res) => {
+        console.log(res.status, "Usuario actualizado exitosamente");
+      })
       .catch((err) => setError(err))
       .finally(() => setIsLoading(false));
   };
@@ -36,18 +38,15 @@ export const hooksUser = () => {
       .post(finalUrl, { firstName, email, pass })
       .then((res) => {
         if (res.status == 201) {
-          setError(null);
           setData("Se ha registrado exitosamente");
         } else {
           console.log("error por status", res.status);
-          setData(null);
           setError(
             "Error desconocido, pongase en contacto con el administrador"
           );
         }
       })
       .catch((error) => {
-        setData(null);
         if (error.response) {
           console.log(
             error.response.status,
@@ -75,11 +74,9 @@ export const hooksUser = () => {
     axios
       .post(finalUrl, { email })
       .then((res) => {
-        setError(null);
         setData(res.data);
       })
       .catch((error) => {
-        setData(null);
         if (error.response) {
           console.log(
             error.response.status,
