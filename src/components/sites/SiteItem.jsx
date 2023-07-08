@@ -103,7 +103,6 @@ const SiteItem = ({ plan, position, placeId }) => {
       >
         <Ionicons name="trash-outline" size={20} color="black" />
       </TouchableOpacity>
-      ;
     </View>
   );
 };
