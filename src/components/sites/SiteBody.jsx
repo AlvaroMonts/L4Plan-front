@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import StyledText from "../../components/styledComponents/StyledText";
 
-const SiteLocation = ({ address, description }) => {
+const SiteBody = ({ address, description }) => {
   return (
     <View>
       <StyledText fontSize="body">{address}</StyledText>
@@ -18,4 +18,4 @@ const SiteLocation = ({ address, description }) => {
   );
 };
 
-export default SiteLocation;
+export default SiteBody;

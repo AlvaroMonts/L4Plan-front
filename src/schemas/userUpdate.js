@@ -4,10 +4,10 @@ export const userUpdateValidationSchema = yup.object().shape({
   firstName: yup
     .string()
     .required("El nombre es obligatorio")
-    .max(255, "Demasiado largo!"),
+    .max(30, "Demasiado largo!"),
   lastName: yup
     .string()
     .required("El apellido es obligatorio")
-    .max(255, "Demasiado largo!"),
+    .max(30, "Demasiado largo!"),
   dateBirth: yup.date(),
 });

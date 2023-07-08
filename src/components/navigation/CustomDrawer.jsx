@@ -6,36 +6,19 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   DrawerContentScrollView,
-  DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { useUser } from "../../hooks/useUser";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import StyledText from "../styledComponents/StyledText";
 import { useNavigation } from "@react-navigation/native";
-import ChangePass from "../../pages/ChangePass";
 
 const CustomDrawer = (props) => {
   const navigation = useNavigation();
   const { userInfo, logout } = useUser();
-  /* const [localUserInfo, setLocalUserInfo] = useState(userInfo);
-
-  useEffect(() => {
-    const updateLocalUserInfo = (newUserInfo) => {
-      setLocalUserInfo(newUserInfo);
-    };
-
-    const unsubscribe = () => {
-      userInfo.onUpdate(updateLocalUserInfo);
-    };
-
-    return () => unsubscribe();
-  }, []);
- */
 
   const createTwoButtonAlert = () =>
     Alert.alert(
@@ -76,6 +59,9 @@ const CustomDrawer = (props) => {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
+      {
+        //-------------------- caca ---------------------
+      }
       <TouchableOpacity
         onPress={() => navigation.navigate("Cambia la contraseña")}
         style={styles.changePass}

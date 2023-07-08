@@ -10,11 +10,14 @@ import CustomDrawer from "./CustomDrawer";
 import SelectPlan from "../../pages/SelectPlan";
 import ChangePassLogged from "../../pages/ChangePassLogged";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
 const AppLoggedInNavigation = () => {
+  const navigation = useNavigation();
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}
@@ -67,6 +70,14 @@ const AppLoggedInNavigation = () => {
         component={User}
         name="Tu Cuenta"
         options={{
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Cambia la contraseña")}
+              style={styles.changePass}
+            >
+              <Ionicons name="lock-closed-outline" size={32} color="black" />
+            </TouchableOpacity>
+          ),
           drawerIcon: ({ focused }) => (
             <Ionicons
               name={focused ? "person" : "person-outline"}
@@ -115,5 +126,14 @@ const MainNavigation = () => {
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  changePass: {
+    marginHorizontal: 5,
+    paddingHorizontal: 9,
+    paddingVertical: 12,
+    borderColor: "black",
+  },
+});
 
 export default MainNavigation;

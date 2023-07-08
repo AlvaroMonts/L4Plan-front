@@ -5,6 +5,7 @@ import { registerValidationSchema } from "../schemas/register";
 import FormikInputValue from "../components/styledComponents/FormikInputValue";
 import StyledText from "../components/styledComponents/StyledText";
 import { hooksUser } from "../services/UserService";
+import FormikSecureInputValue from "../components/styledComponents/FormikSecureInputValue";
 
 const initialValues = {
   email: "",
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     color: "green",
     textAlign: "center",
     padding: 10,
-  }
+  },
 });
 
 const Register = () => {
@@ -67,28 +68,33 @@ const Register = () => {
             <View style={styles.form}>
               <FormikInputValue name="email" placeholder="E-mail" />
               <FormikInputValue name="name" placeholder="Nombre" />
-              <FormikInputValue
+              <FormikSecureInputValue
                 name="password"
                 placeholder="Contraseña"
-                secureTextEntry
               />
-              <FormikInputValue
+              <FormikSecureInputValue
                 name="passwordConfirmation"
                 placeholder="Repetir la contraseña"
-                secureTextEntry
               />
               <Button
                 style={styles.button}
                 onPress={handleSubmit}
-                title="Registrarse"
+                title={isLoading ? "Registrando usuario" : "Registrarse"}
+                disabled={isLoading}
               ></Button>
             </View>
           );
         }}
       </Formik>
-      {data && !error && !isLoading && <StyledText style={styles.success}>{data}</StyledText>}
-      {isLoading && !data && !error &&<ActivityIndicator size="large" color="#0000ff" />}
-      {error && !data && !isLoading && <StyledText style={styles.error}>{error}</StyledText>}
+      {data && !error && !isLoading && (
+        <StyledText style={styles.success}>{data}</StyledText>
+      )}
+      {isLoading && !data && !error && (
+        <ActivityIndicator size="large" color="#0000ff" />
+      )}
+      {error && !data && !isLoading && (
+        <StyledText style={styles.error}>{error}</StyledText>
+      )}
     </View>
   );
 };

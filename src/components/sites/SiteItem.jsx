@@ -5,8 +5,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import SiteHeader from "./SiteHeader";
-import SiteLocation from "./SiteLocation";
+import SiteMain from "./SiteMain";
+import SiteBody from "./SiteBody";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { hooksPlan } from "../../services/PlanService";
@@ -14,7 +14,6 @@ import { useUser } from "../../hooks/useUser";
 import { hooksGoogleMapSites } from "../../services/GoogleMapsService";
 import StyledText from "../styledComponents/StyledText";
 import { API_KEY } from "../../services/config";
-import { Swipeable } from "react-native-gesture-handler";
 
 const SiteItem = ({ plan, position, placeId }) => {
   const navigation = useNavigation();
@@ -61,24 +60,17 @@ const SiteItem = ({ plan, position, placeId }) => {
   if (error) {
     return (
       <View style={styles.container}>
-        <Swipeable
-          renderRightActions={() => console.log("swipeable")}
-          onSwipeableOpen={() => closeRow(index)}
-          ref={(ref) => (row[index] = ref)}
-          rightOpemValue={-75}
+        <View style={styles.siteContainer}>
+          <StyledText>
+            Error cargando el sitio previamente añadido: {error}
+          </StyledText>
+        </View>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => handleDeleteFromPlan(position)}
         >
-          <View style={styles.siteContainer}>
-            <StyledText>
-              Error cargando el sitio previamente añadido: {error}
-            </StyledText>
-          </View>
-          <TouchableOpacity
-            style={styles.deleteButton}
-            onPress={() => handleDeleteFromPlan(position)}
-          >
-            <Ionicons name={"trash-outline"} size={20} color={"black"} />
-          </TouchableOpacity>
-        </Swipeable>
+          <Ionicons name={"trash-outline"} size={20} color={"black"} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -92,13 +84,13 @@ const SiteItem = ({ plan, position, placeId }) => {
               navigation.navigate("Sitio", { details: place, plan })
             }
           >
-            <SiteHeader
+            <SiteMain
               position={position}
               photo={placePhoto}
               name={place.name}
               rating={place.rating}
             />
-            <SiteLocation
+            <SiteBody
               address={place.formatted_address}
               description={place.editorial_summary.overview}
             />
@@ -109,8 +101,9 @@ const SiteItem = ({ plan, position, placeId }) => {
         style={styles.deleteButton}
         onPress={() => handleDeleteFromPlan(position)}
       >
-        <Ionicons name={"trash-outline"} size={20} color={"black"} />
+        <Ionicons name="trash-outline" size={20} color="black" />
       </TouchableOpacity>
+      ;
     </View>
   );
 };

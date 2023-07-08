@@ -5,6 +5,7 @@ import StyledText from "../components/styledComponents/StyledText";
 import { loginValidationSchema } from "../schemas/login";
 import FormikInputValue from "../components/styledComponents/FormikInputValue";
 import { useUser } from "../hooks/useUser";
+import FormikSecureInputValue from "../components/styledComponents/FormikSecureInputValue";
 
 const initialValues = {
   email: "",
@@ -33,10 +34,9 @@ const Login = () => {
                 placeholder="Correo electrónico"
                 autoCapitalize="none"
               />
-              <FormikInputValue
+              <FormikSecureInputValue
                 name="password"
                 placeholder="Contraseña"
-                secureTextEntry
               />
               <Button
                 onPress={handleSubmit}

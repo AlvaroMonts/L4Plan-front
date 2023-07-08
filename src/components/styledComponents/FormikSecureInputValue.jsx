@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: "absolute",
-    top: "50%",
+    top: "42%",
     right: 10,
     transform: [{ translateY: -12 }],
     zIndex: 1,

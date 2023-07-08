@@ -3,7 +3,7 @@ import { View, Image, StyleSheet } from "react-native";
 import StyledText from "../../components/styledComponents/StyledText";
 import RatingItem from "../styledComponents/RatingItem";
 
-const SiteHeader = ({ position, photo, name, rating }) => {
+const SiteMain = ({ position, photo, name, rating }) => {
   const defaultImage = require("../../../assets/no-image.jpg");
 
   return (
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SiteHeader;
+export default SiteMain;

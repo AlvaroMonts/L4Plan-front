@@ -35,42 +35,19 @@ const ChangePassLogged = () => {
         onSubmit={handleChangePassLogged}
       >
         {({ handleChange, handleSubmit, values, handleBlur }) => {
-          const [showPasswordOld, setShowPasswordOld] = useState(false);
-          const [showPasswordNew, setShowPasswordNew] = useState(false);
-          const [showPasswordConfirmation, setShowPasswordConfirmation] =
-            useState(false);
-
-          const toggleShowPasswordOld = () => {
-            setShowPasswordOld(!showPasswordOld);
-          };
-
-          const toggleShowPasswordNew = () => {
-            setShowPasswordNew(!showPasswordNew);
-          };
-
-          const toggleShowPasswordConfirmation = () => {
-            setShowPasswordConfirmation(!showPasswordConfirmation);
-          };
-
           return (
             <View style={styles.form}>
               <FormikSecureInputValue
                 name="passwordOld"
                 placeholder="Contraseña antigua"
-                showPassword={showPasswordOld}
-                toggleShowPassword={toggleShowPasswordOld}
               />
               <FormikSecureInputValue
                 name="passwordNew"
                 placeholder="Contraseña nueva"
-                showPassword={showPasswordNew}
-                toggleShowPassword={toggleShowPasswordNew}
               />
               <FormikSecureInputValue
                 name="passwordConfirmation"
                 placeholder="Repite la contraseña nueva"
-                showPassword={showPasswordConfirmation}
-                toggleShowPassword={toggleShowPasswordConfirmation}
               />
               <Button
                 onPress={handleSubmit}
