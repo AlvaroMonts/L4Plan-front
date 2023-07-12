@@ -87,9 +87,6 @@ const Map = () => {
             <Ionicons name="close-circle" size={20} color="#ccc" />
           </TouchableOpacity>
         )}
-        // GooglePlacesSearchQuery={{
-        //    rankby: "distance",
-        // }}
         onPress={(data, details = null) => {
           const selectedRegion = {
             latitude: details.geometry.location.lat,

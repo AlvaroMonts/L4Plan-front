@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import StyledText from "../components/styledComponents/StyledText";
 import { useUser } from "../hooks/useUser";
@@ -47,7 +48,13 @@ const User = () => {
     setEditable(false);
     update(userToken, userInfo.id, firstName, lastName, gender, birthDate);
 
-    const updatedUserInfo = { ...userInfo, firstName };
+    const updatedUserInfo = {
+      ...userInfo,
+      firstName,
+      lastName,
+      gender,
+      birthDate,
+    };
     AsyncStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
   };
 
@@ -70,150 +77,152 @@ const User = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.editButton}
-        onPress={() => {
-          if (!editable) {
-            handleEdit();
-          } else {
-            handleCancel();
-          }
-        }}
-      >
-        <StyledText fontSize="subheading" fontWeight="bold" color="general">
-          {editable ? "Cancelar" : "Editar"}
-        </StyledText>
-      </TouchableOpacity>
+      <ScrollView style={styles.scrollContainer}>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => {
+            if (!editable) {
+              handleEdit();
+            } else {
+              handleCancel();
+            }
+          }}
+        >
+          <StyledText fontSize="subheading" fontWeight="bold" color="general">
+            {editable ? "Cancelar" : "Editar"}
+          </StyledText>
+        </TouchableOpacity>
 
-      <Formik
-        validationSchema={userUpdateValidationSchema}
-        style={styles.formContainer}
-        onSubmit={() => handleSave()}
-        initialValues={{
-          email: "",
-          firstName: "",
-          lastName: "",
-          gender: null,
-          dateBirth: new Date(),
-        }}
-      >
-        {({ handleChange, handleSubmit, values }) => {
-          return (
-            <View style={styles.formContainer}>
-              <View style={styles.inputContainer}>
-                <StyledText style={styles.textHead} fontSize="body">
-                  Email:
-                </StyledText>
-                <FormikInputValue
-                  name="email"
-                  placeholder="Correo Electrónico"
-                  style={styles.input}
-                  value={userInfo.email}
-                  editable={false}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <StyledText style={styles.textHead} fontSize="body">
-                  Nombre:
-                </StyledText>
-                <FormikInputValue
-                  name="firstName"
-                  placeholder="Nombre"
-                  style={styles.input}
-                  value={firstName}
-                  onChangeText={setFirstName}
-                  editable={editable}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <StyledText style={styles.textHead} fontSize="body">
-                  Apellido:
-                </StyledText>
-                <FormikInputValue
-                  name="lastName"
-                  placeholder="Apellidos"
-                  style={styles.input}
-                  value={lastName}
-                  onChangeText={setLastName}
-                  editable={editable}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <StyledText style={styles.textHead} fontSize="body">
-                  Género:
-                </StyledText>
-                <Picker
-                  name="gender"
-                  style={styles.picker}
-                  selectedValue={gender}
-                  onValueChange={(value) => setGender(value)}
-                  enabled={editable}
-                >
-                  {genderOptions.map((option) => (
-                    <Picker.Item
-                      key={option.value}
-                      label={option.label}
-                      value={option.value}
-                    />
-                  ))}
-                </Picker>
-              </View>
-
-              <View style={styles.inputContainer}>
-                <StyledText style={styles.textHead} fontSize="body">
-                  Fecha de nacimiento:
-                </StyledText>
-
-                <TouchableOpacity
-                  onPress={() => {
-                    if (editable) {
-                      setShowDatePicker(true);
-                    }
-                  }}
-                >
-                  <TextInput
-                    name="dateBirth"
+        <Formik
+          validationSchema={userUpdateValidationSchema}
+          style={styles.formContainer}
+          onSubmit={() => handleSave()}
+          initialValues={{
+            email: "",
+            firstName: "",
+            lastName: "",
+            gender: null,
+            dateBirth: new Date(),
+          }}
+        >
+          {({ handleChange, handleSubmit, values }) => {
+            return (
+              <View style={styles.formContainer}>
+                <View style={styles.inputContainer}>
+                  <StyledText style={styles.textHead} fontSize="body">
+                    Email:
+                  </StyledText>
+                  <FormikInputValue
+                    name="email"
+                    placeholder="Correo Electrónico"
                     style={styles.input}
-                    value={birthDate}
-                    // onChangeText={setBirthDate}
+                    value={userInfo.email}
                     editable={false}
                   />
-                </TouchableOpacity>
-                {showDatePicker && (
-                  <DateTimePicker
-                    value={birthDate ? new Date(birthDate) : new Date()}
-                    mode="date"
-                    display="default"
-                    onChange={handleDateChange}
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <StyledText style={styles.textHead} fontSize="body">
+                    Nombre:
+                  </StyledText>
+                  <FormikInputValue
+                    name="firstName"
+                    placeholder="Nombre"
+                    style={styles.input}
+                    value={firstName}
+                    onChangeText={setFirstName}
+                    editable={editable}
                   />
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <StyledText style={styles.textHead} fontSize="body">
+                    Apellido:
+                  </StyledText>
+                  <FormikInputValue
+                    name="lastName"
+                    placeholder="Apellidos"
+                    style={styles.input}
+                    value={lastName}
+                    onChangeText={setLastName}
+                    editable={editable}
+                  />
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <StyledText style={styles.textHead} fontSize="body">
+                    Género:
+                  </StyledText>
+                  <Picker
+                    name="gender"
+                    style={styles.picker}
+                    selectedValue={gender}
+                    onValueChange={(value) => setGender(value)}
+                    enabled={editable}
+                  >
+                    {genderOptions.map((option) => (
+                      <Picker.Item
+                        key={option.value}
+                        label={option.label}
+                        value={option.value}
+                      />
+                    ))}
+                  </Picker>
+                </View>
+
+                <View style={styles.inputContainer}>
+                  <StyledText style={styles.textHead} fontSize="body">
+                    Fecha de nacimiento:
+                  </StyledText>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (editable) {
+                        setShowDatePicker(true);
+                      }
+                    }}
+                  >
+                    <TextInput
+                      name="dateBirth"
+                      style={styles.input}
+                      value={birthDate}
+                      //onChangeText={setBirthDate}
+                      editable={false}
+                    />
+                  </TouchableOpacity>
+                  {showDatePicker && (
+                    <DateTimePicker
+                      value={birthDate ? new Date(birthDate) : new Date()}
+                      mode="date"
+                      display="default"
+                      onChange={handleDateChange}
+                    />
+                  )}
+                </View>
+
+                {editable && (
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                      style={styles.saveButton}
+                      onPress={handleSubmit}
+                    >
+                      <StyledText
+                        fontSize="subheading"
+                        fontWeight="bold"
+                        color="general"
+                      >
+                        Guardar
+                      </StyledText>
+                    </TouchableOpacity>
+                  </View>
                 )}
               </View>
-
-              {editable && (
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity
-                    style={styles.saveButton}
-                    onPress={handleSubmit}
-                  >
-                    <StyledText
-                      fontSize="subheading"
-                      fontWeight="bold"
-                      color="general"
-                    >
-                      Guardar
-                    </StyledText>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          );
-        }}
-      </Formik>
-      {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
-      {error && <StyledText style={styles.error}>{error}</StyledText>}
+            );
+          }}
+        </Formik>
+        {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+        {error && <StyledText style={styles.error}>{error}</StyledText>}
+      </ScrollView>
     </View>
   );
 };
@@ -224,16 +233,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 30,
   },
+  scrollContainer: {
+    flex: 1,
+    width: "80%",
+  },
   editButton: {
     alignSelf: "flex-end",
-    marginRight: 20,
     marginBottom: 10,
     padding: 10,
     borderRadius: 5,
     backgroundColor: "#006699",
   },
   formContainer: {
-    width: "80%",
+    width: "100%",
     marginTop: 20,
   },
   inputContainer: {

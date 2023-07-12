@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import SiteList from "../components/sites/SiteList";
 import StyledText from "../components/styledComponents/StyledText";
@@ -82,11 +82,18 @@ const PlanView = ({ route }) => {
                     style={styles.sitesHeader}
                   >
                     {plan?.places?.length || "0"} Sitio
-                    {plan?.places?.length > 1 && "s"}
+                    {plan?.places?.length != 1 && "s"}
                   </StyledText>
                 </View>
                 <View style={styles.separator1} />
-                <SiteList plan={plan} places={plan.places} />
+                {plan?.places?.length > 0 ? (
+                  <SiteList plan={plan} places={plan.places} />
+                ) : (
+                  <StyledText fontSize="subheading" style={styles.noSitesText}>
+                    No hay sitios en este plan, buscalos en el mapa y añadelos
+                    al plan!
+                  </StyledText>
+                )}
                 <View style={styles.separator2} />
               </View>
             )}
@@ -167,6 +174,9 @@ const styles = StyleSheet.create({
   sitesRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  noSitesText: {
+    marginBottom: 16,
   },
 });
 

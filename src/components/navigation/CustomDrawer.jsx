@@ -59,18 +59,6 @@ const CustomDrawer = (props) => {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      {
-        //-------------------- caca ---------------------
-      }
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Cambia la contraseña")}
-        style={styles.changePass}
-      >
-        <Ionicons name="lock-closed-outline" size={32} color="black" />
-        <StyledText style={styles.changePassText}>
-          Cambiar Contraseña
-        </StyledText>
-      </TouchableOpacity>
       <TouchableOpacity onPress={createTwoButtonAlert} style={styles.logout}>
         <Ionicons name="log-out-outline" size={28} color="black" />
         <StyledText style={styles.logoutText}>Cerrar Sesión</StyledText>
@@ -107,24 +95,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingTop: 10,
   },
-  changePass: {
+  logout: {
     marginHorizontal: 5,
     paddingHorizontal: 9,
     paddingVertical: 12,
     flexDirection: "row",
     borderTopWidth: 1,
     borderColor: "black",
-  },
-  changePassText: {
-    marginLeft: 5,
-    padding: 7.5,
-  },
-  logout: {
-    marginHorizontal: 5,
-    padding: 12,
-    flexDirection: "row",
-    borderTopWidth: 0.5,
-    borderColor: "#ccc",
   },
   logoutText: {
     marginLeft: 5,

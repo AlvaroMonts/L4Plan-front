@@ -92,7 +92,7 @@ const SiteItem = ({ plan, position, placeId }) => {
             />
             <SiteBody
               address={place.formatted_address}
-              description={place.editorial_summary.overview}
+              description={place.editorial_summary?.overview}
             />
           </TouchableOpacity>
         )}

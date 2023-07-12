@@ -31,18 +31,6 @@ const GoogleSiteView = ({ route }) => {
     );
   });
 
-  const handleNavigationToMap = () => {
-    const placeRegion = {
-      latitude: details.geometry.location.lat,
-      longitude: details.geometry.location.lng,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    };
-    navigation.navigate("Mapa", {
-      placeRegion,
-    });
-  };
-
   return (
     <View style={styles.container}>
       <ScrollView>

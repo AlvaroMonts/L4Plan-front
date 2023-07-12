@@ -1,5 +1,5 @@
 import React from "react";
-import { Rating, AirbnbRating } from "react-native-ratings";
+import { Rating /*, AirbnbRating */ } from "react-native-ratings";
 import { View, StyleSheet } from "react-native";
 
 const RatingItem = ({ rating }) => {

@@ -12,7 +12,7 @@ const SiteList = ({ plan, places }) => {
 
   useEffect(() => {
     if (isFocused) {
-      console.log("HAZ REFETCH");
+      // console.log("HAZ REFETCH");
     }
   }, [isFocused]);
 

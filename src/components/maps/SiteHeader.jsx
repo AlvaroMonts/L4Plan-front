@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Image, StyleSheet } from "react-native";
+import { Platform } from "react-native";
 import StyledText from "../../components/styledComponents/StyledText";
 
 const SiteHeader = ({ photo, name, isOpen }) => {
@@ -7,13 +8,15 @@ const SiteHeader = ({ photo, name, isOpen }) => {
 
   return (
     <View style={styles.row}>
-      <View style={styles.columnImage}>
-        <Image
-          style={styles.image}
-          source={photo ? { uri: photo } : defaultImage}
-          defaultSource={defaultImage}
-        />
-      </View>
+      {Platform.OS !== "android" && (
+        <View style={styles.columnImage}>
+          <Image
+            style={styles.image}
+            source={photo ? { uri: photo } : defaultImage}
+            defaultSource={defaultImage}
+          />
+        </View>
+      )}
       <View style={styles.columnMainData}>
         <StyledText fontSize="subheading" fontWeight="bold">
           {name}

@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { BASE_URL } from "../services/config";
-import { set } from "react-native-reanimated";
 
 export const AuthContext = createContext();
 
@@ -10,6 +9,7 @@ const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+  const [username, setUsername] = useState(null);
   const [error, setError] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [requireRefresh, setRequireRefresh] = useState(false);
@@ -54,6 +54,7 @@ const AuthProvider = ({ children }) => {
     setIsLoading(true);
     setUserToken(null);
     setUserInfo(null);
+    setUsername(null);
     AsyncStorage.removeItem("userToken");
     AsyncStorage.removeItem("userInfo");
     setLoggedIn(false);
@@ -103,6 +104,8 @@ const AuthProvider = ({ children }) => {
         error,
         requireRefresh,
         loggedIn,
+        username,
+        setUsername,
       }}
     >
       {children}
